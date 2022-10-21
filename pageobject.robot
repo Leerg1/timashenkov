@@ -21,10 +21,11 @@ send a search request
 get a third search result
     ${links_count} =  Get Element Count  xpath=//h3
     ${list_links_positions}  create list
+    ${expected_position} =  Get Horizontal Position  xpath=(//h3)[1]
     FOR  ${i}  IN RANGE  1  ${links_count}
         ${link_position} =  Get Horizontal Position  xpath=(//h3)[${I}]
         append to list  ${list_links_positions}  ${link_position}
-        ${google_answers_count} =  evaluate  ${list_links_positions}.count(68)
+        ${google_answers_count} =  evaluate  ${list_links_positions}.count(${expected_position})
         exit for loop if	'${google_answers_count}' == '3'
     END
     ${search_result} =  get text  (//h3)[${i}]
